@@ -32,7 +32,7 @@ img{max-width:100%;display:block}
 .music.show{opacity:1;pointer-events:auto}
 .music svg{width:21px;height:21px}.music .ico-pause{display:none}
 .music.is-playing .ico-play{display:none}.music.is-playing .ico-pause{display:block}
-.music.is-playing{animation:spin 7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.music.is-playing{border-color:var(--ink2);box-shadow:0 8px 24px rgba(47,53,110,.3)}
 
 /* COVER (envelope) */
 .cover{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -54,9 +54,10 @@ img{max-width:100%;display:block}
 .env .dove{position:absolute;top:12%;left:50%;transform:translateX(-50%);width:42%;opacity:.9;z-index:2}
 .env .seal{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:34%;z-index:5;filter:drop-shadow(0 6px 10px rgba(120,60,60,.3));transition:transform .55s ease .05s,opacity .5s ease}
 .tap{font-family:var(--body);font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.8rem;color:var(--ink2);
-  border:1px solid var(--ink2);border-radius:999px;padding:12px 26px;background:rgba(255,255,255,.5);cursor:pointer;
-  animation:pulse 2.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.04);opacity:1}}
+  border:1px solid var(--ink2);border-radius:999px;padding:12px 26px;background:rgba(255,255,255,.62);cursor:pointer;
+  animation:tapPulse 2.6s ease-out infinite}
+.tap:hover{background:rgba(255,255,255,.85)}
+@keyframes tapPulse{0%{box-shadow:0 0 0 0 rgba(47,53,110,.32)}70%,100%{box-shadow:0 0 0 14px rgba(47,53,110,0)}}
 
 /* HERO */
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;

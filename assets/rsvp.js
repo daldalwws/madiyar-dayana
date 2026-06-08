@@ -4,10 +4,10 @@
    1) ВСТАВЬТЕ сюда ссылку на ваш Google Apps Script (Web app URL)
       после деплоя (см. README.md, раздел «Анкета в Google Таблицы»).
    ============================================================ */
-const SCRIPT_URL = ""; // <-- сюда вставить URL веб-приложения Apps Script
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbgom_nTSSHmwXZMEH2Ic4tui6DjBYIYcuYatqlTbvMfsrHXTJCqihPT7DPYwltDoE/exec";
 
 /* Дата и время свадьбы: 26 сентября 2026, 18:00 по Алматы (UTC+5) */
-const WEDDING_TS = Date.UTC(2026, 8, 26, 13, 0, 0); // 13:00 UTC = 18:00 Алматы
+const WEDDING_TS = Date.UTC(2026, 8, 26, 12, 0, 0); // 12:00 UTC = 17:00 Алматы (начало в 17:00)
 
 /* ------------------------------------------------------------
    Переводы RU / KZ. Элемент с data-i18n="ключ" получает текст.
@@ -287,7 +287,6 @@ function initForm() {
     // Доп. поля расширенной анкеты (есть только в variant-watercolor; в остальных — пусто).
     // В таблицу пишем по-русски для единообразия, независимо от языка интерфейса.
     const yn = (v) => v === "yes" ? "Да" : v === "no" ? "Нет" : "";
-    const venchanie = yn((fd.get("venchanie") || "").toString());
     const kids = yn((fd.get("kids") || "").toString());
     const kidsCount = (fd.get("kidsCount") || "").toString();
 
@@ -297,7 +296,6 @@ function initForm() {
       attendance,
       attendanceText,
       wishes: (fd.get("wishes") || "").toString().trim(),
-      venchanie,
       kids,
       kidsCount,
       lang: currentLang

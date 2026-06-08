@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Место для фотографии">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#efe7da"/>
+      <stop offset="1" stop-color="#d8cab3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#g)"/>
+  <g fill="none" stroke="#b69a6a" stroke-width="3" opacity="0.7">
+    <circle cx="600" cy="640" r="120"/>
+    <path d="M600 760 C 460 760 360 860 360 1010 L 840 1010 C 840 860 740 760 600 760 Z"/>
+  </g>
+  <text x="600" y="1180" text-anchor="middle" font-family="Georgia, serif" font-size="46" fill="#9c8351" letter-spacing="6">ФОТО</text>
+  <text x="600" y="1240" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#b09a6f">замените на свою (img/hero.jpg)</text>
+</svg>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Мадияр & Даяна — 26.09.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e2019; --bg2:#0a1813; --panel:#13281f; --ink:#f1ece0; --muted:#9fb3a6;
+  --gold:#cba24f; --gold-2:#e3c884; --line:rgba(203,162,79,.28);
+  --disp:"Playfair Display",Georgia,serif; --body:"Manrope",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+section{padding:78px 24px;position:relative}
+.wrap{max-width:720px;margin:0 auto}
+.eyebrow{font-size:.72rem;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h2{font-family:var(--disp);font-weight:700;font-size:clamp(2.1rem,9vw,3.2rem);line-height:1.08}
+.gold{color:var(--gold-2)}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;
+  padding:max(14px,env(safe-area-inset-top)) 18px 12px;pointer-events:none}
+.mark{font-family:var(--disp);font-weight:700;font-size:1.05rem;color:var(--gold-2);pointer-events:auto}
+.lang{display:flex;gap:3px;border:1px solid var(--line);border-radius:999px;padding:4px;pointer-events:auto;background:rgba(10,24,19,.6);backdrop-filter:blur(8px)}
+.lang button{font:700 13px var(--body);letter-spacing:.08em;border:0;background:transparent;color:var(--muted);
+  padding:6px 13px;border-radius:999px;cursor:pointer;min-width:42px}
+.lang button.is-active{background:var(--gold);color:#0e2019}
+
+.music{position:fixed;right:18px;bottom:max(18px,env(safe-area-inset-bottom));z-index:30;width:54px;height:54px;
+  border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--gold-2);cursor:pointer;
+  display:grid;place-items:center;box-shadow:0 8px 26px rgba(0,0,0,.4)}
+.music svg{width:22px;height:22px}.music .ico-pause{display:none}
+.music.is-playing .ico-play{display:none}.music.is-playing .ico-pause{display:block}
+.music.is-playing{animation:spin 6s linear infinite;border-color:var(--gold)}@keyframes spin{to{transform:rotate(360deg)}}
+
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:108px 24px 78px;position:relative;overflow:hidden;
+  background:radial-gradient(120% 90% at 80% 0%,#16332700 0%,#0e2019 60%),radial-gradient(90% 70% at 10% 100%,rgba(203,162,79,.1),transparent 60%)}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:22px 22px;opacity:.6}
+.hero .wrap{position:relative;z-index:1;width:100%}
+.hero .eyebrow{margin-bottom:22px}
+.names{font-family:var(--disp);font-weight:800;font-size:clamp(3.4rem,18vw,6.4rem);line-height:.92;letter-spacing:-.01em}
+.names .amp{font-style:italic;font-weight:500;color:var(--gold-2)}
+.hero .frame{margin-top:28px;aspect-ratio:16/11;border-radius:10px;overflow:hidden;border:1px solid var(--line);position:relative}
+.hero .frame img{width:100%;height:100%;object-fit:cover}
+.hero .frame::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 120px rgba(14,32,25,.7)}
+.hero .strip{display:flex;justify-content:space-between;align-items:center;margin-top:22px;border-top:1px solid var(--line);
+  padding-top:16px;font-size:.92rem;letter-spacing:.06em}
+.hero .strip b{font-family:var(--disp);font-size:1.2rem;color:var(--gold-2)}
+.scroll{margin-top:22px;font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+
+.countdown{background:var(--bg2);text-align:center;border-top:1px solid var(--line)}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:500px;margin:26px auto 0}
+.cd-cell{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 4px}
+.cd-num{font-family:var(--disp);font-weight:700;font-size:clamp(1.8rem,9vw,2.8rem);color:var(--gold-2);line-height:1}
+.cd-lab{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+.lead{font-size:1.18rem;color:#cdd8cf;max-width:34em;margin:16px auto 0}
+.h-c{text-align:center}
+
+.cards{display:grid;gap:16px;margin-top:32px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:30px 24px}
+.card .ic{color:var(--gold);font-size:1.4rem}
+.card h3{font-family:var(--disp);font-weight:700;font-size:1.5rem;margin:8px 0 8px}
+.card .big{font-size:1.18rem;color:var(--gold-2)}
+.card p{color:var(--muted);margin-top:4px}
+.btn{display:inline-block;margin-top:18px;font-weight:700;font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;color:#0e2019;background:var(--gold);padding:13px 26px;border-radius:999px;transition:background .2s,transform .15s}
+.btn:active{transform:scale(.97)}.btn:hover{background:var(--gold-2)}
+
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:30px}
+.gal figure{margin:0;aspect-ratio:1;overflow:hidden;border-radius:10px;border:1px solid var(--line)}
+.gal img{width:100%;height:100%;object-fit:cover}
+
+.rsvp{background:var(--bg2);border-top:1px solid var(--line)}
+form{margin-top:28px;display:grid;gap:20px;text-align:left}
+.field label{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:9px;font-weight:700}
+.field input,.field textarea{width:100%;font-family:var(--body);font-size:1.05rem;color:var(--ink);background:var(--panel);
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.field textarea{min-height:90px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(203,162,79,.18)}
+.field input::placeholder,.field textarea::placeholder{color:#6f8479}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 16px;cursor:pointer}
+.opt input{accent-color:var(--gold);width:20px;height:20px;flex:none}
+.opt:has(input:checked){border-color:var(--gold);background:#163026}
+.opt span{font-size:1.05rem}
+button[type=submit]{font-family:var(--body);font-weight:700;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;
+  color:#0e2019;background:var(--gold);border:0;border-radius:999px;padding:16px;cursor:pointer;transition:background .2s,transform .15s}
+button[type=submit]:active{transform:scale(.98)}button[type=submit]:hover{background:var(--gold-2)}
+button[type=submit]:disabled{opacity:.6}
+.rsvp-status{min-height:1.4em;text-align:center;margin-top:2px}
+.rsvp-status.is-success{color:var(--gold-2)}.rsvp-status.is-error{color:#e08a7d}.rsvp-status.is-info{color:var(--muted)}
+
+footer{text-align:center;padding:62px 24px calc(92px + env(safe-area-inset-bottom));background:var(--bg)}
+footer .n{font-family:var(--disp);font-weight:700;font-size:1.9rem;color:var(--gold-2)}
+footer p{color:var(--muted);margin-top:8px}
+
+[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
+[data-reveal].is-visible{opacity:1;transform:none}
+@media(min-width:680px){.cards{grid-template-columns:1fr 1fr}.gal{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="mark">М &amp; Д</span>
+  <div class="lang" role="group" aria-label="Язык">
+    <button data-lang-btn="ru">RU</button>
+    <button data-lang-btn="kz">KZ</button>
+  </div>
+</div>
+
+<button class="music" data-music-btn aria-label="Включить музыку">
+  <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+</button>
+<audio id="bg-music" src="music/track.mp3" preload="none"></audio>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="hero.invite">Приглашение на свадьбу</p>
+    <h1 class="names">Мадияр<br><span class="amp">&amp;</span> Даяна</h1>
+    <div class="frame"><img src="img/hero-placeholder.svg" alt="Мадияр и Даяна"></div>
+    <div class="strip"><span>26.09.2026</span><b>Premier Hall</b><span>18:00</span></div>
+    <p class="scroll" data-i18n="hero.scroll">Листайте вниз ↓</p>
+  </div>
+</header>
+
+<section class="countdown" data-countdown>
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="countdown.title">До праздника осталось</p>
+    <div class="cd-grid">
+      <div class="cd-cell"><div class="cd-num" data-cd="days">0</div><div class="cd-lab" data-i18n="countdown.days">дней</div></div>
+      <div class="cd-cell"><div class="cd-num" data-cd="hours">00</div><div class="cd-lab" data-i18n="countdown.hours">часов</div></div>
+      <div class="cd-cell"><div class="cd-num" data-cd="minutes">00</div><div class="cd-lab" data-i18n="countdown.minutes">минут</div></div>
+      <div class="cd-cell"><div class="cd-num" data-cd="seconds">00</div><div class="cd-lab" data-i18n="countdown.seconds">секунд</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap h-c" data-reveal>
+    <h2><span class="gold" data-i18n="invite.heading">Дорогие гости!</span></h2>
+    <p class="lead" data-i18n="invite.text">Мы с радостью приглашаем вас…</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cards">
+      <div class="card" data-reveal>
+        <div class="ic">✦</div>
+        <h3 data-i18n="when.title">Когда</h3>
+        <p class="big" data-i18n="when.date">26 сентября 2026 · суббота</p>
+        <p data-i18n="when.time">Начало в 18:00</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="ic">✦</div>
+        <h3 data-i18n="where.title">Где</h3>
+        <p class="big" data-i18n="where.venue">Premier Hall</p>
+        <p data-i18n="where.address">г. Алматы, ул. Умурзакова 76…</p>
+        <a class="btn" href="https://2gis.kz/almaty/firm/70000001024247901" target="_blank" rel="noopener" data-i18n="where.map">Открыть на карте</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap h-c" data-reveal>
+    <h2 data-i18n="gallery.title">Наши моменты</h2>
+    <div class="gal">
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+    </div>
+  </div>
+</section>
+
+<section class="rsvp">
+  <div class="wrap h-c" data-reveal>
+    <h2 data-i18n="rsvp.title">Подтвердите присутствие</h2>
+    <p class="lead" data-i18n="rsvp.subtitle">Пожалуйста, заполните анкету…</p>
+    <form data-rsvp-form>
+      <div class="field"><label data-i18n="rsvp.firstName">Имя</label><input name="firstName" autocomplete="given-name"></div>
+      <div class="field"><label data-i18n="rsvp.lastName">Фамилия</label><input name="lastName" autocomplete="family-name"></div>
+      <div class="field">
+        <label data-i18n="rsvp.attendanceLabel">Сможете ли вы прийти?</label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="attendance" value="alone"><span data-i18n="rsvp.alone">Приду один / одна</span></label>
+          <label class="opt"><input type="radio" name="attendance" value="couple"><span data-i18n="rsvp.couple">Приду с супругом / супругой</span></label>
+          <label class="opt"><input type="radio" name="attendance" value="no"><span data-i18n="rsvp.no">Не смогу прийти</span></label>
+        </div>
+      </div>
+      <div class="field"><label data-i18n="rsvp.wishes">Пожелания молодожёнам</label><textarea name="wishes" data-i18n-ph="rsvp.wishesPh"></textarea></div>
+      <button type="submit"><span data-i18n="rsvp.submit">Отправить ответ</span></button>
+      <p class="rsvp-status" data-rsvp-status></p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="n">Мадияр &amp; Даяна</div>
+  <p data-i18n="footer.text">Будем рады видеть вас!</p>
+</footer>
+
+<script src="assets/rsvp.js"></script>
+</body>
+</html>

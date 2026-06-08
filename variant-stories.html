@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Мадияр & Даяна — 26.09.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Playfair+Display:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffdfa; --bg2:#f6efe4; --ink:#39322a; --muted:#867a67;
+  --accent:#bda06a; --accent-d:#9c8049; --line:#ece1cd;
+  --disp:"Playfair Display",Georgia,serif; --soft:"Cormorant Garamond",Georgia,serif; --body:"Manrope",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+.scroller{height:100svh;overflow-y:scroll;scroll-snap-type:y proximity;scroll-behavior:smooth}
+.snap{min-height:100svh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:96px 26px 84px;position:relative}
+.snap:nth-child(even){background:var(--bg2)}
+.eyebrow{font-family:var(--body);font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--accent-d);font-weight:600}
+h2{font-family:var(--disp);font-weight:600;font-size:clamp(2rem,9vw,3rem);line-height:1.12;margin:.25em 0}
+.soft{font-family:var(--soft);font-size:1.25rem;color:var(--muted)}
+
+/* fixed controls */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:flex-end;padding:max(12px,env(safe-area-inset-top)) 16px 12px;pointer-events:none}
+.lang{display:flex;gap:4px;background:rgba(255,253,250,.85);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;padding:4px;pointer-events:auto}
+.lang button{font:600 14px var(--body);letter-spacing:.06em;border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer;min-width:46px}
+.lang button.is-active{background:var(--accent);color:#fff}
+.music{position:fixed;left:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:40;width:52px;height:52px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(255,253,250,.92);backdrop-filter:blur(8px);color:var(--accent-d);cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 22px rgba(150,120,60,.18)}
+.music svg{width:21px;height:21px}.music .ico-pause{display:none}
+.music.is-playing .ico-play{display:none}.music.is-playing .ico-pause{display:block}
+.music.is-playing{animation:spin 6s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+
+/* dots nav */
+.dots{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:11px}
+.dots button{width:9px;height:9px;border-radius:50%;border:1px solid var(--accent);background:transparent;padding:0;cursor:pointer;transition:transform .2s,background .2s}
+.dots button.is-active{background:var(--accent);transform:scale(1.5)}
+
+/* hero */
+.frame{width:min(64vw,230px);aspect-ratio:1;border-radius:50%;overflow:hidden;border:5px solid #fff;box-shadow:0 18px 44px rgba(150,120,60,.22);margin-bottom:26px}
+.frame img{width:100%;height:100%;object-fit:cover}
+.names{font-family:var(--disp);font-weight:700;font-size:clamp(3rem,16vw,5rem);line-height:1.02;margin:.06em 0}
+.names .amp{display:block;font-family:var(--soft);font-style:italic;color:var(--accent);font-size:.42em;margin:.04em 0}
+.date{font-family:var(--body);letter-spacing:.3em;color:var(--accent-d);margin-top:8px;font-size:1.05rem}
+.scroll{position:absolute;bottom:96px;left:0;right:0;text-align:center;color:var(--muted);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(6px);opacity:1}}
+
+/* countdown */
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:460px;margin:26px auto 0;width:100%}
+.cd-cell{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 4px}
+.snap:nth-child(even) .cd-cell{background:var(--bg)}
+.cd-num{font-family:var(--disp);font-size:clamp(1.7rem,8vw,2.5rem);color:var(--accent-d);line-height:1}
+.cd-lab{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+.lead{font-family:var(--soft);font-size:1.35rem;color:#5c5346;max-width:24em;margin:14px auto 0}
+.big{font-family:var(--disp);font-size:1.7rem;margin-top:6px}
+.sub{color:var(--muted);margin-top:6px}
+.btn{display:inline-block;margin-top:22px;font-family:var(--body);font-weight:600;font-size:1rem;letter-spacing:.06em;text-decoration:none;color:#fff;background:var(--accent);padding:14px 30px;border-radius:999px;transition:background .2s,transform .15s}
+.btn:active{transform:scale(.97)}.btn:hover{background:var(--accent-d)}
+.deco{color:var(--accent);font-size:1.4rem;margin:10px 0}
+
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:440px;margin:24px auto 0;width:100%}
+.gal figure{margin:0;aspect-ratio:1;overflow:hidden;border-radius:16px;border:4px solid #fff;box-shadow:0 8px 22px rgba(150,120,60,.14)}
+.gal img{width:100%;height:100%;object-fit:cover}
+
+/* form */
+form{margin-top:22px;display:grid;gap:16px;text-align:left;width:100%;max-width:440px}
+.field label{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-d);margin-bottom:7px;font-weight:600}
+.field input,.field textarea{width:100%;font-family:var(--body);font-size:1.05rem;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.field textarea{min-height:78px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(189,160,106,.16)}
+.opts{display:grid;gap:9px}
+.opt{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 15px;cursor:pointer}
+.opt input{accent-color:var(--accent);width:20px;height:20px;flex:none}
+.opt:has(input:checked){border-color:var(--accent);background:#fbf5e9}
+button[type=submit]{font-family:var(--body);font-weight:600;font-size:1.1rem;letter-spacing:.04em;color:#fff;background:var(--accent);border:0;border-radius:999px;padding:15px;cursor:pointer;transition:background .2s,transform .15s}
+button[type=submit]:active{transform:scale(.98)}button[type=submit]:hover{background:var(--accent-d)}
+button[type=submit]:disabled{opacity:.6}
+.rsvp-status{min-height:1.4em;text-align:center;margin-top:2px}
+.rsvp-status.is-success{color:#3f7d4f}.rsvp-status.is-error{color:#b4503f}.rsvp-status.is-info{color:var(--muted)}
+.foot{font-family:var(--disp);font-size:1.5rem;color:var(--accent-d);margin-top:18px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="lang" role="group" aria-label="Язык">
+    <button data-lang-btn="ru">RU</button>
+    <button data-lang-btn="kz">KZ</button>
+  </div>
+</div>
+<button class="music" data-music-btn aria-label="Включить музыку">
+  <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+</button>
+<audio id="bg-music" src="music/track.mp3" preload="none"></audio>
+<nav class="dots" aria-label="Разделы"></nav>
+
+<main class="scroller" id="scroller">
+
+  <section class="snap">
+    <div class="frame"><img src="img/hero-placeholder.svg" alt="Мадияр и Даяна"></div>
+    <p class="eyebrow" data-i18n="hero.invite">Приглашение на свадьбу</p>
+    <h1 class="names">Мадияр<span class="amp">&amp;</span>Даяна</h1>
+    <p class="date">26 · 09 · 2026</p>
+    <p class="scroll" data-i18n="hero.scroll">Листайте вниз</p>
+  </section>
+
+  <section class="snap" data-countdown>
+    <p class="eyebrow" data-i18n="countdown.title">До праздника осталось</p>
+    <div class="cd-grid">
+      <div class="cd-cell"><div class="cd-num" data-cd="days">0</div><div class="cd-lab" data-i18n="countdown.days">дней</div></div>
+      <div class="cd-cell"><div class="cd-num" data-cd="hours">00</div><div class="cd-lab" data-i18n="countdown.hours">часов</div></div>
+      <div class="cd-cell"><div class="cd-num" data-cd="minutes">00</div><div class="cd-lab" data-i18n="countdown.minutes">минут</div></div>
+      <div class="cd-cell"><div class="cd-num" data-cd="seconds">00</div><div class="cd-lab" data-i18n="countdown.seconds">секунд</div></div>
+    </div>
+  </section>
+
+  <section class="snap">
+    <p class="deco">❦</p>
+    <h2 data-i18n="invite.heading">Дорогие гости!</h2>
+    <p class="lead" data-i18n="invite.text">Мы с радостью приглашаем вас…</p>
+  </section>
+
+  <section class="snap">
+    <p class="eyebrow" data-i18n="when.title">Когда</p>
+    <p class="big" data-i18n="when.date">26 сентября 2026 · суббота</p>
+    <p class="sub" data-i18n="when.time">Начало в 18:00</p>
+    <p class="deco">✦ ✦ ✦</p>
+    <p class="eyebrow" data-i18n="where.title">Где</p>
+    <p class="big" data-i18n="where.venue">Premier Hall</p>
+    <p class="sub" data-i18n="where.address">г. Алматы, ул. Умурзакова 76…</p>
+    <a class="btn" href="https://2gis.kz/almaty/firm/70000001024247901" target="_blank" rel="noopener" data-i18n="where.map">Открыть на карте</a>
+  </section>
+
+  <section class="snap">
+    <h2 data-i18n="gallery.title">Наши моменты</h2>
+    <div class="gal">
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+    </div>
+  </section>
+
+  <section class="snap">
+    <h2 data-i18n="rsvp.title">Подтвердите присутствие</h2>
+    <p class="soft" data-i18n="rsvp.subtitle">Пожалуйста, заполните анкету…</p>
+    <form data-rsvp-form>
+      <div class="field"><label data-i18n="rsvp.firstName">Имя</label><input name="firstName" autocomplete="given-name"></div>
+      <div class="field"><label data-i18n="rsvp.lastName">Фамилия</label><input name="lastName" autocomplete="family-name"></div>
+      <div class="field">
+        <label data-i18n="rsvp.attendanceLabel">Сможете ли вы прийти?</label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="attendance" value="alone"><span data-i18n="rsvp.alone">Приду один / одна</span></label>
+          <label class="opt"><input type="radio" name="attendance" value="couple"><span data-i18n="rsvp.couple">Приду с супругом / супругой</span></label>
+          <label class="opt"><input type="radio" name="attendance" value="no"><span data-i18n="rsvp.no">Не смогу прийти</span></label>
+        </div>
+      </div>
+      <div class="field"><label data-i18n="rsvp.wishes">Пожелания молодожёнам</label><textarea name="wishes" data-i18n-ph="rsvp.wishesPh"></textarea></div>
+      <button type="submit"><span data-i18n="rsvp.submit">Отправить ответ</span></button>
+      <p class="rsvp-status" data-rsvp-status></p>
+    </form>
+    <p class="foot">Мадияр &amp; Даяна · <span data-i18n="footer.text">Будем рады видеть вас!</span></p>
+  </section>
+
+</main>
+
+<script src="assets/rsvp.js"></script>
+<script>
+/* Точки-индикаторы разделов (специфично для формата «сторис») */
+(function(){
+  var scroller = document.getElementById('scroller');
+  var sections = Array.prototype.slice.call(scroller.querySelectorAll('.snap'));
+  var dots = document.querySelector('.dots');
+  sections.forEach(function(sec, i){
+    var b = document.createElement('button');
+    b.setAttribute('aria-label', 'Раздел ' + (i+1));
+    b.addEventListener('click', function(){ sec.scrollIntoView({behavior:'smooth'}); });
+    dots.appendChild(b);
+  });
+  var btns = dots.querySelectorAll('button');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var idx = sections.indexOf(e.target);
+        btns.forEach(function(b,i){ b.classList.toggle('is-active', i===idx); });
+      }
+    });
+  }, {root: scroller, threshold: 0.55});
+  sections.forEach(function(s){ io.observe(s); });
+})();
+</script>
+</body>
+</html>

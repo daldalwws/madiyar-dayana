@@ -1,0 +1,6 @@
+.DS_Store
+.claude/
+node_modules/
+*.mp3
+!music/*.mp3
+/[0-9a-f][0-9a-f]*.png

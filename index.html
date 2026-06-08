@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Madiyar & Dayana — 26.09.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2f356e; --ink2:#535891; --muted:#8e8aa6;
+  --paper:#fffdfb; --sky:#e8ecf8; --blush:#f5e6e3; --rose:#c98f96; --rose-d:#ab6f78;
+  --green:#9fb38c; --line:#e7dfe8;
+  --script:"Playfair Display",Georgia,serif; --hand:"Playfair Display",Georgia,serif; --body:"Cormorant Garamond",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:20px;line-height:1.6;overflow-x:hidden}
+body.locked{overflow:hidden;height:100svh}
+img{max-width:100%;display:block}
+.script{font-family:var(--script);font-weight:400;color:var(--ink)}
+.eyebrow{font-family:var(--body);font-weight:600;letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:var(--ink2)}
+
+/* fixed controls */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:flex-end;padding:max(12px,env(safe-area-inset-top)) 16px 12px;pointer-events:none}
+.lang{display:flex;gap:4px;background:rgba(255,253,251,.82);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;padding:4px;pointer-events:auto}
+.lang button{font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.06em;border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer;min-width:46px}
+.lang button.is-active{background:var(--ink);color:#fff}
+.music{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:60;width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:rgba(255,253,251,.92);backdrop-filter:blur(8px);color:var(--ink);cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 22px rgba(47,53,110,.18);opacity:0;transition:opacity .5s;pointer-events:none}
+.music.show{opacity:1;pointer-events:auto}
+.music svg{width:21px;height:21px}.music .ico-pause{display:none}
+.music.is-playing .ico-play{display:none}.music.is-playing .ico-pause{display:block}
+.music.is-playing{animation:spin 7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+
+/* COVER (envelope) */
+.cover{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:80px 28px;background:#eef1fa;transition:opacity .8s ease,transform .8s ease}
+.cover-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.cover.open{opacity:0;transform:scale(1.04);pointer-events:none}
+.cover .inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.cover .we{margin-bottom:6px}
+.cover .names{font-family:var(--script);font-size:clamp(3rem,17vw,5rem);color:var(--ink);line-height:1.04}
+.cover .names .amp{color:var(--rose-d)}
+.env{position:relative;width:min(74vw,290px);aspect-ratio:7/5;margin:26px 0 18px;border-radius:8px;
+  background:linear-gradient(160deg,#fbf6ef,#efe3cf);box-shadow:0 22px 50px rgba(80,70,110,.28);overflow:hidden}
+.env .flapline{position:absolute;inset:0}
+.env .flapline::before,.env .flapline::after{content:"";position:absolute;left:0;width:100%;height:2px;background:rgba(120,100,90,.18)}
+.env .v{position:absolute;top:0;left:0;width:100%;height:60%;background:linear-gradient(160deg,#f6ead4,#ecdcc1);
+  clip-path:polygon(0 0,100% 0,50% 100%)}
+.env .dove{position:absolute;top:12%;left:50%;transform:translateX(-50%);width:42%;opacity:.9;z-index:2}
+.env .seal{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:34%;z-index:3;filter:drop-shadow(0 6px 10px rgba(120,60,60,.3))}
+.tap{font-family:var(--body);font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.8rem;color:var(--ink2);
+  border:1px solid var(--ink2);border-radius:999px;padding:12px 26px;background:rgba(255,255,255,.5);cursor:pointer;
+  animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.04);opacity:1}}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:110px 26px 60px;overflow:hidden}
+.hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero .scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 72% 42% at 50% 46%,rgba(33,38,82,.44),rgba(33,38,82,0) 70%),linear-gradient(180deg,rgba(40,45,90,.22),rgba(40,45,90,0) 28%,rgba(40,45,90,.3))}
+.hero .inner{position:relative;z-index:2;color:#fff;text-shadow:0 2px 22px rgba(28,30,68,.7),0 1px 3px rgba(28,30,68,.55)}
+.hero .invited{font-family:var(--body);font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:.78rem;color:#fff}
+.hero .names{font-family:var(--script);font-size:clamp(3.4rem,19vw,6rem);line-height:1.02;color:#fff;margin:.08em 0}
+.hero .date{font-family:var(--body);letter-spacing:.3em;font-size:1.1rem;margin-top:10px}
+.hero .spark{font-size:1.3rem;margin-top:8px;color:#fff}
+.torn{display:block;width:100%;height:46px;margin-top:-46px;position:relative;z-index:3}
+
+/* generic white section */
+section.sheet{position:relative;background:var(--paper);padding:60px 26px;overflow:hidden}
+.corner{position:absolute;width:min(42vw,190px);pointer-events:none;opacity:.96;z-index:0}
+.corner.tl{top:-6px;left:-14px}
+.corner.tr{top:-6px;right:-14px;transform:scaleX(-1)}
+.corner.bl{bottom:-6px;left:-14px;transform:scaleY(-1)}
+.corner.br{bottom:-6px;right:-14px;transform:scale(-1,-1)}
+.wrap{position:relative;z-index:1;max-width:600px;margin:0 auto;text-align:center}
+.sec-title{font-family:var(--script);font-size:clamp(2.4rem,12vw,3.6rem);color:var(--ink);line-height:1.04}
+.lead{font-size:1.18rem;color:#4a4866;max-width:30em;margin:16px auto 0}
+.dateline{font-family:var(--script);font-size:2rem;color:var(--ink);margin-top:14px}
+.dove-sm{width:96px;margin:16px auto 0}
+
+/* timing */
+.tl{margin-top:30px;display:grid;gap:26px;max-width:420px;margin-left:auto;margin-right:auto}
+.ti{display:flex;align-items:center;gap:18px;text-align:left}
+.ti .ic{flex:none;width:58px;height:58px;color:var(--ink)}
+.ti .ic svg{width:100%;height:100%}
+.ti .t{font-family:var(--body);font-weight:600;font-size:1.5rem;color:var(--ink)}
+.ti .l{font-family:var(--hand);font-style:italic;font-size:1.3rem;color:var(--ink2);line-height:1.18}
+
+/* location */
+.sketch{width:min(80%,320px);margin:6px auto 0}
+.maplink{display:inline-flex;align-items:center;gap:12px;margin-top:20px;font-family:var(--body);font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;font-size:.82rem;color:var(--ink);text-decoration:none;
+  border:1px solid var(--ink2);border-radius:999px;padding:13px 26px;transition:background .2s,color .2s}
+.maplink::before,.maplink::after{content:"✦";color:var(--rose);font-size:.8rem}
+.maplink:hover{background:var(--ink);color:#fff}
+
+/* dresscode */
+.dc-img{width:100%;max-width:520px;margin:24px auto 0}
+
+/* form */
+form{margin-top:24px;display:grid;gap:20px;text-align:left;max-width:440px;margin-left:auto;margin-right:auto}
+.field label{display:block;font-family:var(--body);font-weight:600;font-size:1.05rem;color:var(--ink);margin-bottom:8px}
+.field input[type=text]{width:100%;font-family:var(--body);font-size:1.15rem;color:var(--ink);background:transparent;
+  border:0;border-bottom:1.5px solid var(--line);padding:8px 2px;border-radius:0}
+.field input[type=text]:focus{outline:none;border-color:var(--rose)}
+.qa{font-family:var(--body);font-weight:600;font-size:1.05rem;color:var(--ink);margin:4px 0 10px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;cursor:pointer;font-size:1.08rem;color:#4a4866}
+.opt input{accent-color:var(--rose-d);width:21px;height:21px;flex:none}
+.opt:has(input:checked){color:var(--ink);font-weight:600}
+.stepper{display:inline-flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.stepper button{width:48px;height:46px;border:0;background:#f6f1f4;color:var(--ink);font-size:1.4rem;cursor:pointer}
+.stepper button:active{background:#efe7ec}
+.stepper input{width:60px;height:46px;text-align:center;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);
+  font-family:var(--body);font-size:1.2rem;color:var(--ink);background:#fff}
+button[type=submit]{font-family:var(--body);font-weight:600;font-size:1.1rem;letter-spacing:.08em;color:#fff;background:var(--ink);
+  border:0;border-radius:12px;padding:16px;cursor:pointer;transition:background .2s,transform .15s}
+button[type=submit]:active{transform:scale(.98)}button[type=submit]:hover{background:var(--ink2)}
+button[type=submit]:disabled{opacity:.6}
+.rsvp-status{min-height:1.4em;text-align:center;margin-top:2px}
+.rsvp-status.is-success{color:#3f7d4f}.rsvp-status.is-error{color:#c0605a}.rsvp-status.is-info{color:var(--muted)}
+
+/* signature footer */
+.sign{position:relative;background:var(--paper);padding:40px 26px calc(90px + env(safe-area-inset-bottom));text-align:center;overflow:hidden}
+.sign .dove-sm{width:84px;margin:0 auto 6px}
+.sign .regards{font-family:var(--script);font-size:1.9rem;color:var(--ink)}
+
+[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
+[data-reveal].is-visible{opacity:1;transform:none}
+@media(min-width:560px){.corner{width:170px}}
+</style>
+</head>
+<body class="locked">
+
+<!-- controls -->
+<div class="topbar">
+  <div class="lang" role="group" aria-label="Язык">
+    <button data-lang-btn="ru">RU</button>
+    <button data-lang-btn="kz">KZ</button>
+  </div>
+</div>
+<button class="music" id="musicBtn" data-music-btn aria-label="Включить музыку">
+  <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+</button>
+<audio id="bg-music" src="music/track.mp3" preload="none"></audio>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <img class="cover-bg" src="img/wc/cover-bg.jpg" alt="">
+  <div class="inner">
+    <p class="eyebrow we" data-i18n="wc.weMarry">Мы женимся</p>
+    <h1 class="names">Madiyar <span class="amp">&amp;</span> Dayana</h1>
+    <div class="env">
+      <div class="v"></div>
+      <img class="dove" src="img/wc/dove.webp" alt="">
+      <img class="seal" src="img/wc/seal.webp" alt="">
+    </div>
+    <button class="tap" id="openBtn" data-i18n="wc.tapOpen">Нажмите, чтобы открыть</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <img class="bg" src="img/wc/hero-venue.jpg" alt="Premier Hall">
+  <div class="scrim"></div>
+  <div class="inner">
+    <p class="invited" data-i18n="wc.invited">Вы приглашены на свадьбу</p>
+    <h1 class="names">Madiyar <span style="opacity:.9">&amp;</span> Dayana</h1>
+    <p class="spark">✦</p>
+    <p class="date">26 сентября 2026</p>
+  </div>
+</header>
+<svg class="torn" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0,46 L0,20 C 80,8 140,30 220,22 C 300,14 360,2 450,12 C 540,22 600,34 700,24 C 800,14 870,4 960,14 C 1050,24 1110,32 1200,18 L1200,46 Z" fill="#fffdfb"/>
+</svg>
+
+<!-- ДОРОГИЕ ГОСТИ -->
+<section class="sheet" data-reveal>
+  <img class="corner tr" src="img/wc/floral-1.webp" alt="">
+  <img class="corner bl" src="img/wc/floral-2.webp" alt="">
+  <div class="wrap">
+    <h2 class="sec-title" data-i18n="wc.dearGuests">Дорогие гости!</h2>
+    <p class="lead" data-i18n="wc.greetText">Вы приглашены на особенное событие…</p>
+    <img class="dove-sm" src="img/wc/dove.webp" alt="">
+    <p class="dateline">26 сентября 2026</p>
+  </div>
+</section>
+
+<!-- ТАЙМИНГ -->
+<section class="sheet" style="background:#fbf8fb" data-reveal>
+  <img class="corner tl" src="img/wc/floral-2.webp" alt="">
+  <div class="wrap">
+    <h2 class="sec-title" data-i18n="wc.timing">Тайминг</h2>
+    <div class="tl">
+      <div class="ti">
+        <div class="ic"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 12h24M22 12l3 14a5 5 0 0 0 10 0l3-14M30 31v13M22 46h16"/><path d="M25 20h10"/></svg></div>
+        <div><div class="t" data-i18n="wc.t1time">18:00</div><div class="l" data-i18n="wc.t1label">Сбор гостей · Фуршет</div></div>
+      </div>
+      <div class="ti">
+        <div class="ic"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M30 50V32"/><path d="M30 32C22 32 18 23 18 14c6 2 9 6 12 12 3-6 6-10 12-12 0 9-4 18-12 18Z"/><path d="M30 40c-3-2-7-1-9 3M30 40c3-2 7-1 9 3"/></svg></div>
+        <div><div class="t" data-i18n="wc.t2time">19:00</div><div class="l" data-i18n="wc.t2label">Церемония бракосочетания</div></div>
+      </div>
+      <div class="ti">
+        <div class="ic"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M16 30c0-8 6-12 14-12s14 4 14 12M22 30v16M38 30v16M18 46h24"/></svg></div>
+        <div><div class="t" data-i18n="wc.t3time">20:00</div><div class="l" data-i18n="wc.t3label">Банкетный ужин</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЛОКАЦИЯ -->
+<section class="sheet" data-reveal>
+  <img class="corner tr" src="img/wc/floral-1.webp" alt="">
+  <img class="corner bl" src="img/wc/floral-1.webp" alt="">
+  <div class="wrap">
+    <img class="sketch" src="img/wc/venue-sketch.webp" alt="">
+    <h2 class="sec-title" data-i18n="wc.sayYes">Мы говорим друг другу «да»</h2>
+    <p class="lead" data-i18n="wc.locText">Среди уюта и торжества — в Premier Hall, Алматы.</p>
+    <a class="maplink" href="https://2gis.kz/almaty/firm/70000001024247901" target="_blank" rel="noopener" data-i18n="wc.openMap">Открыть карту</a>
+  </div>
+</section>
+
+<!-- ДРЕСС-КОД -->
+<section class="sheet" style="background:#fbf8fb" data-reveal>
+  <img class="corner tl" src="img/wc/floral-2.webp" alt="">
+  <div class="wrap">
+    <h2 class="sec-title" data-i18n="wc.dresscode">Дресс код</h2>
+    <img class="dc-img" src="img/wc/dresscode.webp" alt="">
+    <p class="lead" data-i18n="wc.dresscodeNote">Будем благодарны, если вы поддержите цветовую гамму торжества.</p>
+  </div>
+</section>
+
+<!-- АНКЕТА -->
+<section class="sheet" data-reveal>
+  <img class="corner tr" src="img/wc/floral-1.webp" alt="">
+  <div class="wrap">
+    <h2 class="sec-title" data-i18n="wc.anketa">Анкета</h2>
+    <p class="lead" data-i18n="wc.fillForm">Заполните, пожалуйста, анкету</p>
+    <form data-rsvp-form>
+      <div class="field"><label data-i18n="rsvp.firstName">Имя</label><input type="text" name="firstName" autocomplete="given-name"></div>
+      <div class="field"><label data-i18n="rsvp.lastName">Фамилия</label><input type="text" name="lastName" autocomplete="family-name"></div>
+
+      <div>
+        <p class="qa" data-i18n="wc.willCome">Сможете ли Вы прийти?</p>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="attendance" value="alone"><span data-i18n="wc.comeAlone">Да, я приду один (одна)</span></label>
+          <label class="opt"><input type="radio" name="attendance" value="couple"><span data-i18n="wc.comeCouple">Да, я приду с супругой (-ом)</span></label>
+          <label class="opt"><input type="radio" name="attendance" value="no"><span data-i18n="wc.comeNo">Нет, я не смогу прийти</span></label>
+        </div>
+      </div>
+
+      <div>
+        <p class="qa" data-i18n="wc.venchanie">Сможете ли Вы присутствовать на венчании?</p>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="venchanie" value="yes"><span data-i18n="wc.venYes">Да, смогу</span></label>
+          <label class="opt"><input type="radio" name="venchanie" value="no"><span data-i18n="wc.venNo">Нет, не смогу</span></label>
+        </div>
+      </div>
+
+      <div>
+        <p class="qa" data-i18n="wc.kids">Будут ли с Вами дети?</p>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="kids" value="yes"><span data-i18n="wc.kidsYes">Да</span></label>
+          <label class="opt"><input type="radio" name="kids" value="no"><span data-i18n="wc.kidsNo">Нет</span></label>
+        </div>
+      </div>
+
+      <div>
+        <p class="qa" data-i18n="wc.kidsCount">Сколько детей будет с вами?</p>
+        <div class="stepper">
+          <button type="button" data-step="-1" aria-label="−">−</button>
+          <input type="text" name="kidsCount" value="0" readonly inputmode="numeric" aria-label="Количество детей">
+          <button type="button" data-step="1" aria-label="+">+</button>
+        </div>
+      </div>
+
+      <button type="submit"><span data-i18n="wc.submit">Отправить</span></button>
+      <p class="rsvp-status" data-rsvp-status></p>
+    </form>
+  </div>
+</section>
+
+<!-- ПОДПИСЬ -->
+<footer class="sign">
+  <img class="corner bl" src="img/wc/floral-2.webp" alt="">
+  <div class="wrap">
+    <img class="dove-sm" src="img/wc/dove.webp" alt="">
+    <p class="regards" data-i18n="wc.regards">С уважением, Мадияр и Даяна</p>
+  </div>
+</footer>
+
+<script src="assets/rsvp.js"></script>
+<script>
+/* Открытие обложки + степпер детей (специфично для этого варианта) */
+(function(){
+  var cover = document.getElementById('cover');
+  var music = document.getElementById('musicBtn');
+  document.getElementById('openBtn').addEventListener('click', function(){
+    cover.classList.add('open');
+    document.body.classList.remove('locked');
+    music.classList.add('show');
+    try { if(!music.classList.contains('is-playing')) music.click(); } catch(e){}
+    setTimeout(function(){ cover.style.display='none'; }, 850);
+  });
+
+  var input = document.querySelector('input[name="kidsCount"]');
+  document.querySelectorAll('.stepper button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var d = parseInt(btn.getAttribute('data-step'),10);
+      var v = Math.max(0, Math.min(20, (parseInt(input.value,10)||0) + d));
+      input.value = v;
+    });
+  });
+})();
+</script>
+</body>
+</html>

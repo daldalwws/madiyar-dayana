@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Мадияр & Даяна — 26.09.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --bg2:#faf7f6; --ink:#2f2a2a; --muted:#8c8180;
+  --rose:#d39aa1; --rose-d:#b87680; --line:#ede6e4; --soft:#f7eeef;
+  --disp:"Fraunces",Georgia,serif; --body:"Manrope",system-ui,sans-serif;
+  --navh:72px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+img{max-width:100%;display:block}
+.eyebrow{font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--rose-d);font-weight:700}
+h2{font-family:var(--disp);font-weight:600;font-size:clamp(1.7rem,7vw,2.3rem);line-height:1.12}
+
+/* app shell */
+.appbar{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;
+  padding:max(10px,env(safe-area-inset-top)) 16px 10px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--disp);font-weight:600;font-size:1.05rem}
+.appbar .right{display:flex;align-items:center;gap:8px}
+.lang{display:flex;gap:2px;border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{font:700 12px var(--body);letter-spacing:.06em;border:0;background:transparent;color:var(--muted);padding:6px 11px;border-radius:999px;cursor:pointer;min-width:40px}
+.lang button.is-active{background:var(--rose);color:#fff}
+.music{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--rose-d);cursor:pointer;display:grid;place-items:center}
+.music svg{width:18px;height:18px}.music .ico-pause{display:none}
+.music.is-playing .ico-play{display:none}.music.is-playing .ico-pause{display:block}
+.music.is-playing{border-color:var(--rose)}
+
+main{padding:0 20px calc(var(--navh) + env(safe-area-inset-bottom) + 24px)}
+.panel{display:none;animation:fade .35s ease}
+.panel.is-active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.center{text-align:center}
+
+/* home */
+.hero{padding:26px 0 8px;text-align:center}
+.frame{width:min(64vw,240px);aspect-ratio:1;border-radius:50%;overflow:hidden;border:5px solid var(--soft);box-shadow:0 16px 40px rgba(211,154,161,.25);margin:0 auto 20px}
+.frame img{width:100%;height:100%;object-fit:cover}
+.names{font-family:var(--disp);font-weight:600;font-size:clamp(2.6rem,13vw,4rem);line-height:1.02}
+.names .amp{font-style:italic;color:var(--rose-d)}
+.date{letter-spacing:.28em;color:var(--rose-d);margin-top:8px;font-weight:600;font-size:.95rem}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:24px}
+.cd-cell{background:var(--soft);border-radius:14px;padding:16px 4px}
+.cd-num{font-family:var(--disp);font-weight:600;font-size:clamp(1.5rem,7vw,2.1rem);color:var(--rose-d);line-height:1}
+.cd-lab{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:7px}
+.invite{margin-top:26px;background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center}
+.invite .lead{color:#5b5252;margin-top:8px}
+
+/* details */
+.sec-title{margin:26px 0 14px}
+.tile{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:14px}
+.tile .ic{color:var(--rose);font-size:1.3rem}
+.tile h3{font-family:var(--disp);font-weight:600;font-size:1.4rem;margin:6px 0 4px}
+.tile .big{font-weight:700;color:var(--rose-d)}
+.tile p{color:var(--muted);margin-top:4px}
+.btn{display:inline-block;margin-top:16px;font-weight:700;font-size:.95rem;letter-spacing:.04em;text-decoration:none;color:#fff;background:var(--rose);padding:13px 26px;border-radius:999px;transition:background .2s,transform .15s}
+.btn:active{transform:scale(.97)}.btn:hover{background:var(--rose-d)}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.gal figure{margin:0;aspect-ratio:1;overflow:hidden;border-radius:14px;border:1px solid var(--line)}
+.gal img{width:100%;height:100%;object-fit:cover}
+
+/* form */
+.intro{margin:24px 0 8px}
+form{display:grid;gap:16px}
+.field label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rose-d);margin-bottom:7px;font-weight:700}
+.field input,.field textarea{width:100%;font-family:var(--body);font-size:1.05rem;color:var(--ink);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 15px}
+.field textarea{min-height:84px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 3px rgba(211,154,161,.18)}
+.opts{display:grid;gap:9px}
+.opt{display:flex;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 15px;cursor:pointer}
+.opt input{accent-color:var(--rose);width:20px;height:20px;flex:none}
+.opt:has(input:checked){border-color:var(--rose);background:var(--soft)}
+button[type=submit]{font-family:var(--body);font-weight:700;font-size:1.05rem;color:#fff;background:var(--rose);border:0;border-radius:999px;padding:16px;cursor:pointer;transition:background .2s,transform .15s}
+button[type=submit]:active{transform:scale(.98)}button[type=submit]:hover{background:var(--rose-d)}
+button[type=submit]:disabled{opacity:.6}
+.rsvp-status{min-height:1.4em;text-align:center;margin-top:2px}
+.rsvp-status.is-success{color:#3f7d4f}.rsvp-status.is-error{color:#c0605a}.rsvp-status.is-info{color:var(--muted)}
+
+/* bottom nav */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--navh) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);display:flex;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.tabbar button{flex:1;border:0;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted);font:600 11px var(--body);letter-spacing:.04em}
+.tabbar button svg{width:23px;height:23px}
+.tabbar button.is-active{color:var(--rose-d)}
+.tabbar button.is-active svg{transform:translateY(-1px)}
+</style>
+</head>
+<body>
+
+<div class="appbar">
+  <span class="brand">Мадияр &amp; Даяна</span>
+  <div class="right">
+    <button class="music" data-music-btn aria-label="Включить музыку">
+      <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+    <div class="lang" role="group" aria-label="Язык">
+      <button data-lang-btn="ru">RU</button>
+      <button data-lang-btn="kz">KZ</button>
+    </div>
+  </div>
+</div>
+<audio id="bg-music" src="music/track.mp3" preload="none"></audio>
+
+<main>
+  <!-- ГЛАВНАЯ -->
+  <section class="panel is-active" id="tab-home">
+    <div class="hero">
+      <div class="frame"><img src="img/hero-placeholder.svg" alt="Мадияр и Даяна"></div>
+      <p class="eyebrow" data-i18n="hero.invite">Приглашение на свадьбу</p>
+      <h1 class="names">Мадияр <span class="amp">&amp;</span> Даяна</h1>
+      <p class="date">26 · 09 · 2026 · 18:00</p>
+    </div>
+    <div data-countdown>
+      <div class="cd-grid">
+        <div class="cd-cell"><div class="cd-num" data-cd="days">0</div><div class="cd-lab" data-i18n="countdown.days">дней</div></div>
+        <div class="cd-cell"><div class="cd-num" data-cd="hours">00</div><div class="cd-lab" data-i18n="countdown.hours">часов</div></div>
+        <div class="cd-cell"><div class="cd-num" data-cd="minutes">00</div><div class="cd-lab" data-i18n="countdown.minutes">минут</div></div>
+        <div class="cd-cell"><div class="cd-num" data-cd="seconds">00</div><div class="cd-lab" data-i18n="countdown.seconds">секунд</div></div>
+      </div>
+    </div>
+    <div class="invite">
+      <h2 data-i18n="invite.heading">Дорогие гости!</h2>
+      <p class="lead" data-i18n="invite.text">Мы с радостью приглашаем вас…</p>
+    </div>
+  </section>
+
+  <!-- ДЕТАЛИ -->
+  <section class="panel" id="tab-details">
+    <h2 class="sec-title center" data-i18n="when.title">Когда</h2>
+    <div class="tile center">
+      <div class="ic">✦</div>
+      <p class="big" data-i18n="when.date">26 сентября 2026 · суббота</p>
+      <p data-i18n="when.time">Начало в 18:00</p>
+    </div>
+    <div class="tile center">
+      <div class="ic">✦</div>
+      <h3 data-i18n="where.venue">Premier Hall</h3>
+      <p data-i18n="where.address">г. Алматы, ул. Умурзакова 76…</p>
+      <a class="btn" href="https://2gis.kz/almaty/firm/70000001024247901" target="_blank" rel="noopener" data-i18n="where.map">Открыть на карте</a>
+    </div>
+    <h2 class="sec-title center" data-i18n="gallery.title">Наши моменты</h2>
+    <div class="gal">
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+      <figure><img src="img/gallery-placeholder.svg" alt=""></figure>
+    </div>
+  </section>
+
+  <!-- АНКЕТА -->
+  <section class="panel" id="tab-rsvp">
+    <h2 class="sec-title center" data-i18n="rsvp.title">Подтвердите присутствие</h2>
+    <p class="center" style="color:var(--muted)" data-i18n="rsvp.subtitle">Пожалуйста, заполните анкету…</p>
+    <div class="intro"></div>
+    <form data-rsvp-form>
+      <div class="field"><label data-i18n="rsvp.firstName">Имя</label><input name="firstName" autocomplete="given-name"></div>
+      <div class="field"><label data-i18n="rsvp.lastName">Фамилия</label><input name="lastName" autocomplete="family-name"></div>
+      <div class="field">
+        <label data-i18n="rsvp.attendanceLabel">Сможете ли вы прийти?</label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="attendance" value="alone"><span data-i18n="rsvp.alone">Приду один / одна</span></label>
+          <label class="opt"><input type="radio" name="attendance" value="couple"><span data-i18n="rsvp.couple">Приду с супругом / супругой</span></label>
+          <label class="opt"><input type="radio" name="attendance" value="no"><span data-i18n="rsvp.no">Не смогу прийти</span></label>
+        </div>
+      </div>
+      <div class="field"><label data-i18n="rsvp.wishes">Пожелания молодожёнам</label><textarea name="wishes" data-i18n-ph="rsvp.wishesPh"></textarea></div>
+      <button type="submit"><span data-i18n="rsvp.submit">Отправить ответ</span></button>
+      <p class="rsvp-status" data-rsvp-status></p>
+    </form>
+  </section>
+</main>
+
+<nav class="tabbar" role="tablist">
+  <button data-tab="tab-home" class="is-active" aria-label="Главная">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>
+    <span data-i18n="nav.home">Главная</span>
+  </button>
+  <button data-tab="tab-details" aria-label="Детали">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-11a7 7 0 0114 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+    <span data-i18n="nav.details">Детали</span>
+  </button>
+  <button data-tab="tab-rsvp" aria-label="Анкета">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v16l-7-3-7 3z"/><path d="M9 9h6M9 12h6"/></svg>
+    <span data-i18n="nav.rsvp">Анкета</span>
+  </button>
+</nav>
+
+<script src="assets/rsvp.js"></script>
+<script>
+/* Переключение вкладок (специфично для формата «приложение») */
+(function(){
+  var tabs = document.querySelectorAll('.tabbar button');
+  var panels = document.querySelectorAll('.panel');
+  tabs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-tab');
+      tabs.forEach(function(b){ b.classList.toggle('is-active', b===btn); });
+      panels.forEach(function(p){ p.classList.toggle('is-active', p.id===id); });
+      window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

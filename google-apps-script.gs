@@ -83,6 +83,10 @@ function onOpen() {
 
 function buildDashboard() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // Разделители формул зависят от локали таблицы (RU/KZ → «;» и «\»).
+  var loc = (ss.getSpreadsheetLocale() || 'en_US');
+  var S = /^en_/.test(loc) ? ',' : ';';    // разделитель аргументов
+  var AC = /^en_/.test(loc) ? ',' : '\\';  // разделитель столбцов inline-массива
   var src = ss.getSheetByName(SHEET_NAME); // 'Ответы'
   if (!src) {
     SpreadsheetApp.getUi().alert('Лист «' + SHEET_NAME + '» не найден. Сначала должны прийти ответы анкеты.');
@@ -115,10 +119,10 @@ function buildDashboard() {
   sh.getRange(4, 1, labels1.length, 1).setValues(labels1).setFontWeight('bold');
   sh.getRange('B4').setValue(GUEST_LIMIT);
   sh.getRange('B5').setFormula('=SUMPRODUCT((\'Ответы\'!E2:E2000="couple")*2)+SUMPRODUCT((\'Ответы\'!E2:E2000="alone")*1)');
-  sh.getRange('B6').setFormula('=SUMPRODUCT((\'Ответы\'!E2:E2000<>"no")*(\'Ответы\'!E2:E2000<>"")*IFERROR(VALUE(\'Ответы\'!G2:G2000&""),0))');
+  sh.getRange('B6').setFormula('=SUMPRODUCT((\'Ответы\'!E2:E2000<>"no")*(\'Ответы\'!E2:E2000<>"")*IFERROR(VALUE(\'Ответы\'!G2:G2000&"")' + S + '0))');
   sh.getRange('B7').setFormula('=B5+B6');
   sh.getRange('B8').setFormula('=B4-B7');
-  sh.getRange('B9').setFormula('=SPARKLINE(IFERROR(B7/B4,0),{"charttype","bar";"max",1;"color1","#b06c74";"empty","zero"})');
+  sh.getRange('B9').setFormula('=SPARKLINE(IFERROR(B7/B4' + S + '0)' + S + '{"charttype"' + AC + '"bar";"max"' + AC + '1;"color1"' + AC + '"#b06c74";"empty"' + AC + '"zero"})');
   sh.getRange('A7:B7').setBackground('#eef0f8');
   sh.getRange('B7').setFontSize(18).setFontWeight('bold').setFontColor('#2f356e');
   sh.getRange('B8').setFontSize(13).setFontWeight('bold');
@@ -128,10 +132,10 @@ function buildDashboard() {
   var labels2 = [['Всего ответов'], ['Придут один'], ['Придут с парой'], ['Не смогут'], ['Семей с детьми']];
   sh.getRange(12, 1, labels2.length, 1).setValues(labels2).setFontWeight('bold');
   sh.getRange('B12').setFormula('=COUNTA(\'Ответы\'!B2:B2000)');
-  sh.getRange('B13').setFormula('=COUNTIF(\'Ответы\'!E2:E2000,"alone")');
-  sh.getRange('B14').setFormula('=COUNTIF(\'Ответы\'!E2:E2000,"couple")');
-  sh.getRange('B15').setFormula('=COUNTIF(\'Ответы\'!E2:E2000,"no")');
-  sh.getRange('B16').setFormula('=COUNTIF(\'Ответы\'!F2:F2000,"Да")');
+  sh.getRange('B13').setFormula('=COUNTIF(\'Ответы\'!E2:E2000' + S + '"alone")');
+  sh.getRange('B14').setFormula('=COUNTIF(\'Ответы\'!E2:E2000' + S + '"couple")');
+  sh.getRange('B15').setFormula('=COUNTIF(\'Ответы\'!E2:E2000' + S + '"no")');
+  sh.getRange('B16').setFormula('=COUNTIF(\'Ответы\'!F2:F2000' + S + '"Да")');
 
   // ---- разбивка для диаграммы (D4:E6) ----
   sh.getRange('D3').setValue('Разбивка').setFontWeight('bold').setFontColor('#ab6f78');
@@ -157,7 +161,7 @@ function buildDashboard() {
   sh.getRange('A18').setValue('СПИСОК ГОСТЕЙ (кто придёт)').setFontWeight('bold').setFontColor('#ab6f78');
   sh.getRange('A19:E19').setValues([['Имя', 'Фамилия', 'Присутствие', 'Детей', 'Дата ответа']])
     .setFontWeight('bold').setBackground('#f3eef5');
-  sh.getRange('A20').setFormula('=IFERROR(QUERY(\'Ответы\'!A2:I2000, "select B, C, D, G, A where E=\'alone\' or E=\'couple\' order by A desc", 0), "Пока нет подтверждений")');
+  sh.getRange('A20').setFormula('=IFERROR(QUERY(\'Ответы\'!A2:I2000' + S + ' "select B, C, D, G, A where E=\'alone\' or E=\'couple\' order by A desc"' + S + ' 0)' + S + ' "Пока нет подтверждений")');
   sh.getRange('E20:E300').setNumberFormat('dd.mm.yyyy hh:mm');
 
   // осталось < 0 → красный

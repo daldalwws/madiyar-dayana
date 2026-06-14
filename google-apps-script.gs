@@ -27,11 +27,13 @@ var TG_CHAT_IDS = ['', ''];    // chat_id получателей (ты и нев
 
 function notifyTelegram_(p) {
   if (!TG_TOKEN) return;
-  var txt = '🎉 Новый ответ на свадьбу\n'
-    + '👤 ' + (p.firstName || '') + ' ' + (p.lastName || '') + '\n'
-    + '✅ ' + (p.attendanceText || p.attendance || '') + '\n'
-    + '👶 Дети: ' + (p.kids || '—') + ' (' + (p.kidsCount || '0') + ')'
-    + (p.wishes ? '\n💬 ' + p.wishes : '');
+  var name = ((p.firstName || '') + ' ' + (p.lastName || '')).trim();
+  var lines = ['🎉 Новый ответ на свадьбу'];
+  lines.push('👤 ' + (name || '—'));
+  lines.push('✅ ' + (p.attendanceText || p.attendance || '—'));
+  if (p.kids) lines.push('👶 Дети: ' + p.kids + (p.kidsCount ? ' (' + p.kidsCount + ')' : ''));
+  if (p.wishes) lines.push('💬 ' + p.wishes);
+  var txt = lines.join('\n');
   TG_CHAT_IDS.forEach(function (id) {
     if (!id) return;
     UrlFetchApp.fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
@@ -40,6 +42,27 @@ function notifyTelegram_(p) {
       muteHttpExceptions: true
     });
   });
+}
+
+// Разбор параметров запроса: e.parameter (urlencoded) + запасной разбор postData (json/urlencoded).
+function parseParams_(e) {
+  var p = {};
+  if (e && e.parameter) p = e.parameter;
+  if (!p.firstName && e && e.postData && e.postData.contents) {
+    try {
+      var c = e.postData.contents, t = (e.postData.type || '');
+      if (t.indexOf('json') >= 0) {
+        p = JSON.parse(c);
+      } else {
+        c.split('&').forEach(function (kv) {
+          var i = kv.indexOf('=');
+          if (i >= 0) p[decodeURIComponent(kv.slice(0, i).replace(/\+/g, ' '))] =
+                       decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' '));
+        });
+      }
+    } catch (_) {}
+  }
+  return p || {};
 }
 
 function doPost(e) {
@@ -56,7 +79,15 @@ function doPost(e) {
       sheet.setFrozenRows(1);
     }
 
-    var p = (e && e.parameter) ? e.parameter : {};
+    var p = parseParams_(e);
+    // Игнорируем пустой вызов (например ручной Run ▸ doPost в редакторе): не пишем
+    // пустую строку и не шлём пустой пуш. Реальная заявка всегда имеет имя/присутствие.
+    if (!p.firstName && !p.lastName && !p.attendance) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ result: 'empty' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
     sheet.appendRow([
       new Date(),
       p.firstName || '',
@@ -69,7 +100,7 @@ function doPost(e) {
       p.lang || ''
     ]);
 
-    try { notifyTelegram_(p); } catch (e) {} // пуш в Telegram, не ломает приём анкеты
+    try { notifyTelegram_(p); } catch (e2) {} // пуш в Telegram, не ломает приём анкеты
 
     return ContentService
       .createTextOutput(JSON.stringify({ result: 'ok' }))
@@ -86,7 +117,7 @@ function doPost(e) {
 // Открытие URL в браузере (GET) — простая проверка, что веб-приложение работает.
 function doGet() {
   return ContentService
-    .createTextOutput('OK — анкета свадьбы Madiyar & Dayana готова принимать ответы.')
+    .createTextOutput('OK v3 — анкета свадьбы Madiyar & Dayana готова принимать ответы.')
     .setMimeType(ContentService.MimeType.TEXT);
 }
 

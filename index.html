@@ -109,6 +109,8 @@ form{margin-top:24px;display:grid;gap:20px;text-align:left;max-width:440px;margi
 .field input[type=text]{width:100%;font-family:var(--body);font-size:1.15rem;color:var(--ink);background:transparent;
   border:0;border-bottom:1.5px solid var(--line);padding:8px 2px;border-radius:0}
 .field input[type=text]:focus{outline:none;border-color:var(--rose)}
+.field textarea{width:100%;font-family:var(--body);font-size:1.1rem;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:80px;resize:vertical}
+.field textarea:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 3px rgba(201,143,138,.16)}
 .qa{font-family:var(--body);font-weight:600;font-size:1.05rem;color:var(--ink);margin:4px 0 10px}
 .opts{display:grid;gap:10px}
 .opt{display:flex;align-items:center;gap:12px;cursor:pointer;font-size:1.08rem;color:#4a4866}
@@ -312,6 +314,11 @@ button[type=submit]:disabled{opacity:.6}
           <input type="text" name="kidsCount" value="0" readonly inputmode="numeric" aria-label="Количество детей">
           <button type="button" data-step="1" aria-label="+">+</button>
         </div>
+      </div>
+
+      <div class="field">
+        <label data-i18n="rsvp.wishes">Пожелания молодожёнам</label>
+        <textarea name="wishes" rows="3" data-i18n-ph="rsvp.wishesPh"></textarea>
       </div>
 
       <button type="submit"><span data-i18n="wc.submit">Отправить</span></button>

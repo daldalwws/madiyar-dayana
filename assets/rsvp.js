@@ -275,8 +275,8 @@ function initForm() {
     if (submitBtn) submitBtn.disabled = true;
     say("rsvp.sending", "info");
 
-    // человекочитаемая метка варианта присутствия (на текущем языке)
-    const attendanceText = I18N[currentLang][
+    // человекочитаемая метка присутствия — всегда по-русски (единообразие в таблице)
+    const attendanceText = I18N["ru"][
       attendance === "alone" ? "rsvp.alone" : attendance === "couple" ? "rsvp.couple" : "rsvp.no"
     ];
 
@@ -284,7 +284,8 @@ function initForm() {
     // В таблицу пишем по-русски для единообразия, независимо от языка интерфейса.
     const yn = (v) => v === "yes" ? "Да" : v === "no" ? "Нет" : "";
     const kids = yn((fd.get("kids") || "").toString());
-    const kidsCount = (fd.get("kidsCount") || "").toString();
+    // число детей шлём только если выбрали «дети: да»
+    const kidsCount = kids === "Да" ? (fd.get("kidsCount") || "").toString() : "";
 
     const body = new URLSearchParams({
       firstName,

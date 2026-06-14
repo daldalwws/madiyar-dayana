@@ -4,7 +4,7 @@
    1) ВСТАВЬТЕ сюда ссылку на ваш Google Apps Script (Web app URL)
       после деплоя (см. README.md, раздел «Анкета в Google Таблицы»).
    ============================================================ */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbgom_nTSSHmwXZMEH2Ic4tui6DjBYIYcuYatqlTbvMfsrHXTJCqihPT7DPYwltDoE/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyudQJYCoFUa0u5D0q01DK0P6dxR99DYWsqvJzdU-2o13yuO_0S-Bd8m1EmcfCqn3Nt/exec";
 
 /* Дата и время свадьбы: 26 сентября 2026, 18:00 по Алматы (UTC+5) */
 const WEDDING_TS = Date.UTC(2026, 8, 26, 12, 0, 0); // 12:00 UTC = 17:00 Алматы (начало в 17:00)

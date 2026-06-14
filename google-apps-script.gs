@@ -20,6 +20,24 @@
 // Название листа, куда писать ответы (создаётся автоматически).
 var SHEET_NAME = 'Ответы';
 
+// --- Telegram-уведомления (заполни в СВОЁМ Apps Script, в репозиторий НЕ коммить) ---
+var TG_TOKEN   = '';   // токен от @BotFather, напр. '123456:ABC...'
+var TG_CHAT_ID = '';   // твой chat_id (узнать через @userinfobot)
+
+function notifyTelegram_(p) {
+  if (!TG_TOKEN || !TG_CHAT_ID) return;
+  var txt = '🎉 Новый ответ на свадьбу\n'
+    + '👤 ' + (p.firstName || '') + ' ' + (p.lastName || '') + '\n'
+    + '✅ ' + (p.attendanceText || p.attendance || '') + '\n'
+    + '👶 Дети: ' + (p.kids || '—') + ' (' + (p.kidsCount || '0') + ')'
+    + (p.wishes ? '\n💬 ' + p.wishes : '');
+  UrlFetchApp.fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
+    method: 'post',
+    payload: { chat_id: TG_CHAT_ID, text: txt, disable_web_page_preview: 'true' },
+    muteHttpExceptions: true
+  });
+}
+
 function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.waitLock(30000); // не теряем ответы при одновременной отправке
@@ -46,6 +64,8 @@ function doPost(e) {
       p.wishes || '',
       p.lang || ''
     ]);
+
+    try { notifyTelegram_(p); } catch (e) {} // пуш в Telegram, не ломает приём анкеты
 
     return ContentService
       .createTextOutput(JSON.stringify({ result: 'ok' }))

@@ -21,20 +21,24 @@
 var SHEET_NAME = 'Ответы';
 
 // --- Telegram-уведомления (заполни в СВОЁМ Apps Script, в репозиторий НЕ коммить) ---
-var TG_TOKEN   = '';   // токен от @BotFather, напр. '123456:ABC...'
-var TG_CHAT_ID = '';   // твой chat_id (узнать через @userinfobot)
+var TG_TOKEN    = '';          // токен от @BotFather, напр. '123456:ABC...'
+var TG_CHAT_IDS = ['', ''];    // chat_id получателей (ты и невестка), узнать через @userinfobot
+                               // каждый должен один раз нажать Start у бота
 
 function notifyTelegram_(p) {
-  if (!TG_TOKEN || !TG_CHAT_ID) return;
+  if (!TG_TOKEN) return;
   var txt = '🎉 Новый ответ на свадьбу\n'
     + '👤 ' + (p.firstName || '') + ' ' + (p.lastName || '') + '\n'
     + '✅ ' + (p.attendanceText || p.attendance || '') + '\n'
     + '👶 Дети: ' + (p.kids || '—') + ' (' + (p.kidsCount || '0') + ')'
     + (p.wishes ? '\n💬 ' + p.wishes : '');
-  UrlFetchApp.fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
-    method: 'post',
-    payload: { chat_id: TG_CHAT_ID, text: txt, disable_web_page_preview: 'true' },
-    muteHttpExceptions: true
+  TG_CHAT_IDS.forEach(function (id) {
+    if (!id) return;
+    UrlFetchApp.fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
+      method: 'post',
+      payload: { chat_id: String(id), text: txt, disable_web_page_preview: 'true' },
+      muteHttpExceptions: true
+    });
   });
 }
 
